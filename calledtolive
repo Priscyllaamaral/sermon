@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chamados para Viver — Não para Sobreviver</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-light: #EEEDFE;
+      --purple-mid: #534AB7;
+      --purple-dark: #3C3489;
+      --teal-light: #E1F5EE;
+      --teal-mid: #0F6E56;
+      --coral-light: #FAECE7;
+      --coral-mid: #993C1D;
+      --bg: #FAFAF8;
+      --surface: #F3F2EE;
+      --text: #1A1916;
+      --muted: #5F5E5A;
+      --border: rgba(0,0,0,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .header .label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .header h1 {
+      font-size: clamp(1.9rem, 5vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+
+    .header-verses {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* ── Verse block ── */
+    .verse-block {
+      background: var(--surface);
+      border-left: 3px solid var(--purple-mid);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.4rem;
+      font-style: italic;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .verse-block cite {
+      display: block;
+      font-style: normal;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--purple-mid);
+      margin-top: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3.5rem 0;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 3.5rem; }
+
+    .section-number {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 500;
+      color: var(--purple-mid);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Callout arrows ── */
+    .callout-row {
+      border-left: 2px solid var(--border);
+      padding-left: 1.1rem;
+      margin: 1.3rem 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .callout-row span {
+      font-style: italic;
+      font-size: 0.97rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .callout-row span::before {
+      content: "→ ";
+      font-style: normal;
+      color: var(--purple-mid);
+      font-weight: 500;
+    }
+
+    /* ── Bullet list ── */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin: 1rem 0;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      font-size: 0.97rem;
+      line-height: 1.65;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      display: inline-block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple-mid);
+      margin-top: 0.55em;
+    }
+
+    /* ── Highlight box ── */
+    .highlight-box {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.3rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0.45rem;
+      font-size: 0.97rem;
+      line-height: 1.75;
+    }
+
+    .highlight-box p:last-child { margin-bottom: 0; }
+    .highlight-box strong { font-weight: 600; }
+
+    /* ── Paradox grid ── */
+    .paradox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .paradox-card {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.2rem 1.3rem;
+    }
+
+    .paradox-card .tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .paradox-card.salvar .tag { color: var(--coral-mid); }
+    .paradox-card.perder .tag { color: var(--teal-mid); }
+
+    .paradox-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .paradox-card ul li {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .paradox-card ul li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    /* ── Conclusion ── */
+    .conclusion {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--surface);
+      border-radius: 16px;
+      margin: 3rem 0;
+    }
+
+    .conclusion blockquote {
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ── Aplicação ── */
+    .aplicacao {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .aplicacao h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .question {
+      display: flex;
+      gap: 0.9rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .question .q-num {
+      flex-shrink: 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--purple-mid);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .aplicacao-cta {
+      margin-top: 1.3rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--purple-mid);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      margin-top: 5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .page { padding: 2.5rem 1.25rem 4rem; }
+      .paradox-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.7rem; }
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; }
+      .page { max-width: 100%; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <p class="label">Sermão</p>
+      <h1>Chamados para Viver —<br>Não para Sobreviver</h1>
+      <div class="header-verses">
+        <blockquote class="verse-block">
+          "Antes que eu te formasse no ventre, eu te conheci…"
+          <cite>— Jeremias 1:5</cite>
+        </blockquote>
+        <blockquote class="verse-block">
+          "Somos feitura dele, criados em Cristo Jesus para boas obras…"
+          <cite>— Efésios 2:10</cite>
+        </blockquote>
+      </div>
+    </header>
+
+    <!-- Ponto 1 -->
+    <section class="section">
+      <p class="section-number">Ponto 1</p>
+      <h2>Você não nasceu por acaso — você nasceu com um propósito</h2>
+      <p>Deus não cria ninguém vazio. Ele não forma vidas sem direção. Antes mesmo de você existir, já havia um propósito desenhado.</p>
+      <p>Jeremias não escolheu ser profeta — ele foi chamado para isso. E da mesma forma, existe algo dentro de você que não foi colocado por acaso.</p>
+      <div class="callout-row">
+        <span>Aquilo que você faz bem.</span>
+        <span>Aquilo que te move.</span>
+        <span>Aquilo que, quando você faz, parece que sua alma "respira".</span>
+      </div>
+      <p>Isso não é coincidência. Isso é chamado.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Ponto 2 -->
+    <section class="section">
+      <p class="section-number">Ponto 2</p>
+      <h2>Ignorar o chamado gera morte interior</h2>
+      <blockquote class="verse-block">
+        "Porque quem quiser salvar a sua vida, perdê-la-á…"
+        <cite>— Mateus 16:25</cite>
+      </blockquote>
+      <p>Existe um tipo de morte que não é física. É quando a pessoa está viva… mas por dentro está apagada.</p>
+      <p>Quando você deixa de fazer aquilo que nasceu para fazer:</p>
+      <ul class="bullet-list">
+        <li>você perde sentido</li>
+        <li>você perde equilíbrio</li>
+        <li>você começa a viver no automático</li>
+      </ul>
+      <p>Não é falta de Deus. É desalinhamento com aquilo que Deus colocou em você.</p>
+      <div class="callout-row">
+        <span>Você não foi feito para apenas existir.</span>
+        <span>Você foi feito para expressar algo.</span>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Ponto 3 -->
+    <section class="section">
+      <p class="section-number">Ponto 3</p>
+      <h2>Seu chamado pode ser múltiplo</h2>
+      <p>Muitas pessoas travam porque acham que só podem ter uma única missão. Mas a Bíblia mostra o contrário.</p>
+      <ul class="bullet-list">
+        <li>Davi era rei, guerreiro e músico</li>
+        <li>Paulo era apóstolo e também trabalhava como fabricante de tendas</li>
+        <li>Bezalel (Êxodo 31) foi chamado para arte, técnica e criatividade</li>
+      </ul>
+      <p>Deus não limita você a uma única função. Você pode ter 2, 3 ou mais áreas onde existe vida em você.</p>
+      <div class="highlight-box">
+        <p>O segredo não é escolher uma e matar as outras.</p>
+        <p><strong>O segredo é ordenar.</strong></p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Ponto 4 -->
+    <section class="section">
+      <p class="section-number">Ponto 4</p>
+      <h2>Prioridade gera vida, desordem gera confusão</h2>
+      <blockquote class="verse-block">
+        "Tudo, porém, seja feito com decência e ordem."
+        <cite>— 1 Coríntios 14:40</cite>
+      </blockquote>
+      <p>Não é sobre fazer tudo ao mesmo tempo. É sobre entender o peso de cada coisa.</p>
+      <div class="paradox-grid">
+        <div class="paradox-card salvar">
+          <p class="tag">Quando você negligencia</p>
+          <ul>
+            <li>sua mente fica inquieta</li>
+            <li>seu corpo perde energia</li>
+            <li>sua alma perde direção</li>
+          </ul>
+        </div>
+        <div class="paradox-card perder">
+          <p class="tag">Quando você vive o chamado</p>
+          <ul>
+            <li>você se sente alinhado</li>
+            <li>você encontra equilíbrio</li>
+            <li>você ganha força</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout-row">
+        <span>Existe uma vida que só aparece quando você está no lugar certo.</span>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Ponto 5 -->
+    <section class="section">
+      <p class="section-number">Ponto 5</p>
+      <h2>Você precisa se comprometer com aquilo que Deus colocou em você</h2>
+      <p>Na Parábola dos Talentos (Mateus 25), o problema não foi errar. O problema foi não usar.</p>
+      <p>O servo que enterrou o talento não perdeu por falta de capacidade… ele perdeu por falta de movimento.</p>
+      <div class="callout-row">
+        <span>Dom parado vira peso.</span>
+        <span>Chamado ignorado vira frustração.</span>
+      </div>
+      <p>Deus não te deu algo para você guardar. Ele te deu para você viver.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Aprofundando -->
+    <section class="section">
+      <p class="section-number">Aprofundando a Palavra</p>
+      <h2>O que Jesus quis dizer em Mateus 16:25?</h2>
+      <blockquote class="verse-block">
+        "Quem quiser salvar a sua vida, perdê-la-á; mas quem perder a sua vida por minha causa, encontrá-la-á."
+        <cite>— Mateus 16:25</cite>
+      </blockquote>
+      <p>Aqui, "salvar a vida" não é sobre sobreviver fisicamente — é sobre tentar controlar a própria vida do seu jeito, sem se render ao propósito de Deus.</p>
+
+      <div class="paradox-grid">
+        <div class="paradox-card salvar">
+          <p class="tag">"Salvar a própria vida"</p>
+          <ul>
+            <li>viver só no conforto</li>
+            <li>evitar riscos</li>
+            <li>fugir do chamado</li>
+            <li>manter controle de tudo</li>
+          </ul>
+        </div>
+        <div class="paradox-card perder">
+          <p class="tag">"Perder a vida"</p>
+          <ul>
+            <li>obedecer mesmo com medo</li>
+            <li>viver o propósito sem garantia</li>
+            <li>fazer o que nasceu pra fazer</li>
+            <li>se render à direção de Deus</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <p>Jesus está ensinando um princípio invertido:</p>
+        <p>Quem vive para se preservar → se perde.</p>
+        <p><strong>Quem vive para obedecer o propósito → se encontra.</strong></p>
+      </div>
+    </section>
+
+    <!-- Conclusão -->
+    <div class="conclusion">
+      <blockquote>
+        "Quando você vive o seu chamado, você não apenas vive melhor —
+        você finalmente começa a viver de verdade."
+      </blockquote>
+    </div>
+
+    <!-- Aplicação -->
+    <div class="aplicacao">
+      <h3>Aplicação prática</h3>
+      <div class="question">
+        <span class="q-num">01</span>
+        <span>O que em mim está vivo, mas eu tenho ignorado?</span>
+      </div>
+      <div class="question">
+        <span class="q-num">02</span>
+        <span>O que eu faço que me traz sentido real?</span>
+      </div>
+      <div class="question">
+        <span class="q-num">03</span>
+        <span>O que Deus já colocou em mim que eu ainda não assumi?</span>
+      </div>
+      <div class="aplicacao-cta">
+        <span>→ Comece pequeno</span>
+        <span>→ Mas comece hoje</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Chamados para Viver — Não para Sobreviver</p>
+    </footer>
+
+  </div>
+</body>
+</html>
